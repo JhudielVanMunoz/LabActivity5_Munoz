@@ -27,7 +27,11 @@ public class FoodOrderGUI extends JFrame {
         btnOrder.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                calc_order();
+                try {
+                    calc_order();
+                } catch (Exception e2) {
+                    JOptionPane.showMessageDialog(panel1, e2.getMessage());
+                }
             }
         });
     }
@@ -41,7 +45,7 @@ public class FoodOrderGUI extends JFrame {
         app.setVisible(true);
     }
 
-    public void calc_order() {
+    public void calc_order() throws Exception {
         double total = 0;
         if (cPizza.isSelected()) {
             total += 100;
@@ -60,6 +64,9 @@ public class FoodOrderGUI extends JFrame {
         }
         if (cSundae.isSelected()) {
             total += 40;
+        }
+        if (total == 0) {
+            throw new Exception("Must select at least one food item.");
         }
 
         double discount = 0;
