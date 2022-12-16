@@ -27,7 +27,13 @@ public class LeapYearGUI extends JFrame{
     }
 
     public void checkYear() {
-        int year = Integer.parseInt(tfYear.getText());
+        int year = 0;
+        try {
+            year = Integer.parseInt(tfYear.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(panel1, "Input a valid number.");
+            return;
+        }
 
         boolean is_ly = false;
         if (year % 400 == 0) {
