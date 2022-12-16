@@ -31,25 +31,40 @@ public class SimpleCalcGUI extends JFrame {
     }
 
     public void compute() {
-        double first_n = Double.parseDouble(tfNumber1.getText());
-        double second_n = Double.parseDouble(tfNumber2.getText());
+        double first_n = 0;
+        double second_n = 0;
+        try {
+            first_n = Double.parseDouble(tfNumber1.getText());
+            second_n = Double.parseDouble(tfNumber2.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(panel1, "Input a valid number.");
+            return;
+        }
         String op = cbOperations.getSelectedItem().toString();
 
         double result = 0;
-        switch (op) {
-            case "+":
-                result = first_n + second_n;
-                break;
-            case "-":
-                result = first_n - second_n;
-                break;
-            case "*":
-                result = first_n * second_n;
-                break;
-            case "/":
-                result = first_n / second_n;
-                break;
-        };
+        try {
+            switch (op) {
+                case "+":
+                    result = first_n + second_n;
+                    break;
+                case "-":
+                    result = first_n - second_n;
+                    break;
+                case "*":
+                    result = first_n * second_n;
+                    break;
+                case "/":
+                    if (second_n == 0) {
+                        throw new Exception("Division by 0 is not valid.");
+                    }
+                        result = first_n / second_n;
+                    break;
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(panel1, e.getMessage());
+            return;
+        }
 
         lblResult.setText(Double.toString(result));
     }
